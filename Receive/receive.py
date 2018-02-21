@@ -2,11 +2,9 @@ import pika
 import psycopg2
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
-#connection = pika.BlockingConnection(pika.URLParameters("amqp://guest:guest@172.17.0.2:5672"))
-#connection = pika.BlockingConnection(pika.URLParameters("amqp://guest:guest@my-rabbit:5672"))
 channel = connection.channel()
 channel.queue_declare(queue='hello')
-i = 0
+
 
 def insert_in_db(new_string):
     try:
@@ -20,12 +18,8 @@ def insert_in_db(new_string):
 
 
 def callback(ch, method, properties, body):
-    global i
-    i += 1
-    if i == 1:
-        raise Exception
     insert_in_db(body)
-    print(" [x] Received ", body.decode('UTF-8'), file=sys.stderr)
+    print(" [x] Received ", body.decode('UTF-8'))
 
 channel.basic_consume(callback, queue='hello', no_ack=True)
 print(' [*] Wainting for messages. To exit press CTRL+C')
