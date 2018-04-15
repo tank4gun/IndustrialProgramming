@@ -3,6 +3,22 @@
 
 using namespace std;
 
+void fill_set(int size, set<int> &set_to_fill) {
+    int input_val;
+    for(int i = 0; i < size; i++) {
+        cin >> input_val;
+        set_to_fill.insert(input_val);
+    }
+}
+
+void print_set(set<int> &set_to_print) {
+    set<int>::iterator it = set_to_print.begin();
+    for(; it != set_to_print.end(); it++) {
+        cout << *it << " ";
+    }
+    cout << endl;
+}
+
 int main()
 {
     set<int> A;
@@ -10,16 +26,8 @@ int main()
     int n, m, d, count = 0;
     cin >> n >> m;
     int mass1[n];
-    for (int i = 0; i < n; i++)
-    {
-        cin >> d;
-        A.insert(d);
-    }
-    for (int i = 0; i < m; i++)
-    {
-        cin >> d;
-        B.insert(d);
-    }
+    fill_set(n, A);
+    fill_set(m, B);
     set<int>::iterator it = A.begin();
     for (; it != A.end(); it++)
     {
@@ -42,18 +50,9 @@ int main()
         A.erase(mass1[i]);
         B.erase(mass1[i]);
     }
-    set<int>::iterator yt = A.begin();
-    for(; yt != A.end(); yt++)
-    {
-        cout << *yt << ' ';
-    }
-    cout << endl;
+    print_set(A);
     cout << m - count << endl;
-    set<int>::iterator zt = B.begin();
-    for(; zt != B.end(); zt++)
-    {
-        cout << *zt << ' ';
-    }
+    print_set(B);
     return 0;
 }
 
