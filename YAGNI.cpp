@@ -383,16 +383,6 @@ void SplayTree::addInRange(int value, int l, int r) {
     root_ = merge(root_, pr1.second);
 }
 
-/*void SplayTree::printTree(Node* x) {
-    if (x->leftSon != nullptr) {
-        printTree(x->leftSon);
-    }
-    std::cout << x->val << " ";
-    if (x->rightSon != nullptr) {
-        printTree(x->rightSon);
-    }
-}*/
-
 SplayTree::Node* SplayTree::findMin(long long val, Node* curNode) {
     if (curNode == nullptr) {
         return nullptr;
